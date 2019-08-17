@@ -25,6 +25,7 @@ public class Poker {
     private final int THIRD_OF_A_KING = 2;
     private final int STRAIGHT = 3;
     private final int FLUSH = 4;
+    private final int FULL_HOUSE = 5;
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
@@ -32,7 +33,7 @@ public class Poker {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
         Map<Character,Integer> flushMap = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             resultList.add(0);
         }
         for (int i = 0; i < gamerPoker.length; i++) {
@@ -67,6 +68,24 @@ public class Poker {
         if(flushMap.size() == 1){
             resultList.set(FLUSH,1);
         }
+        if(countMap.size()==2&&countMap.containsValue(3)){
+            resultList.set(FULL_HOUSE,getFullHouseValue(countMap));
+        }
+
+    }
+
+
+    private int getFullHouseValue(Map<Character, Integer> countMap) {
+        int sum = 0;
+        for (Character key : countMap.keySet()) {
+            if (countMap.get(key) == 3) {
+                sum += gameMap.get(key)*2;
+            }
+            if (countMap.get(key) == 2) {
+                sum += gameMap.get(key);
+            }
+        }
+        return sum;
     }
 
     private boolean isStraight(Map<Character, Integer> countMap) {
