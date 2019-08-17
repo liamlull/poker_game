@@ -51,7 +51,7 @@ public class Game {
         }
         if(countMap.size()==4){
             countMap.clear();
-            return 10000*pair;
+            return 10000*pair+result;
         }
         return result;
     }
