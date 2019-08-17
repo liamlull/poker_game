@@ -22,37 +22,21 @@ public class Game {
 
 
     public int startGame(String[] gamer1, String[] gamer2) {
-        int result1 = getResult(gamer1);
-        int result2 = getResult(gamer2);
-        if(result1>result2){
+        Poker poker1 = new Poker(gamer1);
+        Poker poker2 = new Poker(gamer2);
+        for(int i=poker1.getResultList().size()-1;i>=0;i--){
+            if(poker1.getResultList().get(i)>poker2.getResultList().get(i)){
+                return 1;
+            }else if(poker1.getResultList().get(i)<poker2.getResultList().get(i)){
+                return 2;
+            }
+        }
+        if(poker1.getResult()>poker2.getResult()){
             return 1;
-        }else if(result2>result1){
+        }else if(poker2.getResult()>poker1.getResult()){
             return 2;
         }else {
             return 0;
         }
-    }
-
-    private int getResult(String[] gamer1) {
-        Map<Character,Integer> countMap = new HashMap<Character, Integer>(){};
-
-        int pair = 0;
-        int result = 0;
-        for (int i = 0; i < gamer1.length; i++) {
-            if (gameMap.containsKey(gamer1[i].charAt(0))) {
-                result += gameMap.get(gamer1[i].charAt(0));
-            }
-            if (countMap.containsKey(gamer1[i].charAt(0))) {
-                pair = gamer1[i].charAt(0);
-                countMap.put(gamer1[i].charAt(0), countMap.get(gamer1[i].charAt(0))+1);
-            }else {
-                countMap.put(gamer1[i].charAt(0), 1);
-            }
-        }
-        if(countMap.size()==4){
-            countMap.clear();
-            return 10000*pair+result;
-        }
-        return result;
     }
 }

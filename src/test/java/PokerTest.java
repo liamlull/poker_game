@@ -104,4 +104,51 @@ public class PokerTest {
     }
 
 
+    @Test
+    public void should_return_1_when_given_3C_3H_KD_KC_TH_and_3C_8D_KS_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","3H","KD","KC","TH"};
+        String[] gamer2 = {"3C","8D","KS","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_3H_KD_KC_TH_and_3C_8D_KS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","3H","KD","KC","TH"};
+        String[] gamer2 = {"3C","8D","KS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_2_when_given_3C_3H_KD_KC_TH_and_3C_3D_KS_KD_QH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","3H","KD","KC","TH"};
+        String[] gamer2 = {"3C","3D","KS","KD","QH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,2);
+    }
+
+    @Test
+    public void should_return_0_when_given_3C_3H_KD_KC_TH_and_3C_3D_KS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","3H","KD","KC","TH"};
+        String[] gamer2 = {"3C","3D","KS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,0);
+    }
+
+
+
+
 }
