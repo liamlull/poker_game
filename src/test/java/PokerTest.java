@@ -49,7 +49,7 @@ public class PokerTest {
         assertEquals(result,1);
     }
     @Test
-    public void should_return_2_when_given_3C_8H_9D_7C_TH_and_3C_8D_9S_7D_TH(){
+    public void should_return_0_when_given_3C_8H_9D_7C_TH_and_3C_8D_9S_7D_TH(){
         Game game = new Game();
         String[] gamer1 = {"3C","8H","9D","7C","TH"};
         String[] gamer2 = {"3C","8D","9S","7D","TH"};
@@ -57,6 +57,28 @@ public class PokerTest {
         int result = game.startGame(gamer1,gamer2);
 
         assertEquals(result,0);
+    }
+
+    @Test
+    public void should_return_2_when_given_3C_8H_9D_7C_TH_and_3C_3D_9S_7D_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","8H","9D","7C","TH"};
+        String[] gamer2 = {"3C","3D","9S","7D","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,2);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_8H_KD_KC_TH_and_3C_3D_9S_7D_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","8H","KD","KC","TH"};
+        String[] gamer2 = {"3C","3D","9S","7D","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
     }
 
 

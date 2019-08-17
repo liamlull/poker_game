@@ -20,6 +20,7 @@ public class Game {
         put('A', 4096);
     }};
 
+
     public int startGame(String[] gamer1, String[] gamer2) {
         int result1 = getResult(gamer1);
         int result2 = getResult(gamer2);
@@ -33,12 +34,24 @@ public class Game {
     }
 
     private int getResult(String[] gamer1) {
+        Map<Character,Integer> countMap = new HashMap<Character, Integer>(){};
 
+        int pair = 0;
         int result = 0;
         for (int i = 0; i < gamer1.length; i++) {
             if (gameMap.containsKey(gamer1[i].charAt(0))) {
                 result += gameMap.get(gamer1[i].charAt(0));
             }
+            if (countMap.containsKey(gamer1[i].charAt(0))) {
+                pair = gamer1[i].charAt(0);
+                countMap.put(gamer1[i].charAt(0), countMap.get(gamer1[i].charAt(0))+1);
+            }else {
+                countMap.put(gamer1[i].charAt(0), 1);
+            }
+        }
+        if(countMap.size()==4){
+            countMap.clear();
+            return 10000*pair;
         }
         return result;
     }
