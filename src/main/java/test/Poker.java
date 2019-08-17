@@ -23,14 +23,15 @@ public class Poker {
     }};
 
     private final int PAIR = 0;
-    private final int TWOPAIR = 1;
+    private final int TWO_PAIR = 1;
+    private final int THIRD_OF_A_KING = 2;
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
     public Poker(String[] gamerPoker) {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 3; i++) {
             resultList.add(0);
         }
         for (int i = 0; i < gamerPoker.length; i++) {
@@ -47,7 +48,10 @@ public class Poker {
                 resultList.set(PAIR, getPariValue(countMap));
             }
             if (countMap.size() == 3 && countMap.containsValue(2)) {
-                resultList.set(TWOPAIR, getTwoPariValue(countMap));
+                resultList.set(TWO_PAIR, getTwoPariValue(countMap));
+            }
+            if (countMap.size() == 3 && countMap.containsValue(3)) {
+                resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
             }
         }
     }
@@ -55,6 +59,15 @@ public class Poker {
     private Integer getPariValue(Map<Character, Integer> countMap) {
         for (Character key : countMap.keySet()) {
             if (countMap.get(key) == 2) {
+                return gameMap.get(key);
+            }
+        }
+        return 0;
+    }
+
+    private Integer getThirdOfAKingValue(Map<Character, Integer> countMap) {
+        for (Character key : countMap.keySet()) {
+            if (countMap.get(key) == 3) {
                 return gameMap.get(key);
             }
         }
@@ -70,6 +83,8 @@ public class Poker {
         }
         return sum;
     }
+
+
 
     public int getResult() {
         return result;
