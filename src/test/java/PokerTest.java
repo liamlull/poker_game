@@ -570,6 +570,117 @@ public class PokerTest {
         assertEquals(result,0);
     }
 
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_9C_9D_9S_9H_3H() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"9C","9D","9S","9H","3H"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_9C_9D_9S_QD_QH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"9C","9D","9S","QD","QH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_3D_3D_4D_9D_KD() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"3D","3D","4D","9D","KD"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_9C_JD_KS_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"9C","JD","KS","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_9C_9D_9S_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"9C","9D","9S","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_QC_9D_9S_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"QC","9D","9S","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_KC_9D_9S_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"KC","9D","9S","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3H_4H_5H_6H_7H_and_KC_9D_8S_QD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"KC","9D","9S","QD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_2_when_given_3H_4H_5H_6H_7H_and_9H_TH_JH_QH_KH() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"9H","TH","JH","KH","QH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,2);
+    }
+
+    @Test
+    public void should_return_0_when_given_3H_4H_5H_6H_7H_and_6D_3D_4D_5D_7D() {
+        Game game = new Game();
+        String[] gamer1 = {"3H","4H","5H","6H","7H"};
+        String[] gamer2 = {"6D","3D","4D","5D","7D"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,0);
+    }
 
 
 

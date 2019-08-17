@@ -27,6 +27,7 @@ public class Poker {
     private final int FLUSH = 4;
     private final int FULL_HOUSE = 5;
     private final int FOUR_OF_A_KING = 6;
+    private final int STRAIGHT_FLUSH = 7;
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
@@ -34,7 +35,7 @@ public class Poker {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
         Map<Character,Integer> flushMap = new HashMap<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 8; i++) {
             resultList.add(0);
         }
         for (int i = 0; i < gamerPoker.length; i++) {
@@ -67,6 +68,9 @@ public class Poker {
             resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
         }
         if(flushMap.size() == 1){
+            if(resultList.get(STRAIGHT)!=0){
+                resultList.set(STRAIGHT_FLUSH,1);
+            }
             resultList.set(FLUSH,1);
         }
         if(countMap.size()==2&&countMap.containsValue(3)){
