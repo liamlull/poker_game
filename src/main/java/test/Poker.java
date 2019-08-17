@@ -24,13 +24,15 @@ public class Poker {
     private final int TWO_PAIR = 1;
     private final int THIRD_OF_A_KING = 2;
     private final int STRAIGHT = 3;
+    private final int FLUSH = 4;
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
     public Poker(String[] gamerPoker) {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
-        for (int i = 0; i < 4; i++) {
+        Map<Character,Integer> flushMap = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
             resultList.add(0);
         }
         for (int i = 0; i < gamerPoker.length; i++) {
@@ -42,21 +44,28 @@ public class Poker {
             } else {
                 countMap.put(gamerPoker[i].charAt(0), 1);
             }
-
-            if(countMap.size() == 5){
-                if(isStraight(countMap)){
-                    resultList.set(STRAIGHT, 10);
-                }
+            if(flushMap.containsKey(gamerPoker[i].charAt(1))){
+                flushMap.put(gamerPoker[i].charAt(1) ,flushMap.get(gamerPoker[i].charAt(1)) + 1);
+            }else{
+                flushMap.put(gamerPoker[i].charAt(1), 1);
             }
-            if (countMap.size() == 4) {
-                resultList.set(PAIR, getPariValue(countMap));
+        }
+        if(countMap.size() == 5){
+            if(isStraight(countMap)){
+                resultList.set(STRAIGHT, 1);
             }
-            if (countMap.size() == 3 && countMap.containsValue(2)) {
-                resultList.set(TWO_PAIR, getTwoPariValue(countMap));
-            }
-            if (countMap.size() == 3 && countMap.containsValue(3)) {
-                resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
-            }
+        }
+        if (countMap.size() == 4) {
+            resultList.set(PAIR, getPariValue(countMap));
+        }
+        if (countMap.size() == 3 && countMap.containsValue(2)) {
+            resultList.set(TWO_PAIR, getTwoPariValue(countMap));
+        }
+        if (countMap.size() == 3 && countMap.containsValue(3)) {
+            resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
+        }
+        if(flushMap.size() == 1){
+            resultList.set(FLUSH,1);
         }
     }
 
