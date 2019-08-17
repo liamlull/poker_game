@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.jar.JarOutputStream;
 
 public class Poker {
+
     Map<Character, Integer> gameMap = new HashMap<Character, Integer>() {{
         put('2', 1);
         put('3', 2);
@@ -31,6 +32,7 @@ public class Poker {
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
+
     public Poker(String[] gamerPoker) {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
@@ -42,30 +44,28 @@ public class Poker {
             if (gameMap.containsKey(gamerPoker[i].charAt(0))) {
                 this.result += gameMap.get(gamerPoker[i].charAt(0));
             }
-            if (countMap.containsKey(gamerPoker[i].charAt(0))) {
-                countMap.put(gamerPoker[i].charAt(0), countMap.get(gamerPoker[i].charAt(0)) + 1);
-            } else {
-                countMap.put(gamerPoker[i].charAt(0), 1);
-            }
-            if(flushMap.containsKey(gamerPoker[i].charAt(1))){
-                flushMap.put(gamerPoker[i].charAt(1) ,flushMap.get(gamerPoker[i].charAt(1)) + 1);
-            }else{
-                flushMap.put(gamerPoker[i].charAt(1), 1);
-            }
+            countMap = getCount(countMap,gamerPoker[i],0);
+            flushMap = getCount(flushMap,gamerPoker[i],1);
         }
+
+        calculatePokerType(countMap,flushMap);
+    }
+
+
+    private void calculatePokerType(Map<Character, Integer> countMap, Map<Character, Integer> flushMap) {
         if(countMap.size() == 5){
             if(isStraight(countMap)){
                 resultList.set(STRAIGHT, 1);
             }
         }
         if (countMap.size() == 4) {
-            resultList.set(PAIR, getPariValue(countMap));
+            resultList.set(PAIR, getKeyValue(countMap,2));
         }
         if (countMap.size() == 3 && countMap.containsValue(2)) {
-            resultList.set(TWO_PAIR, getTwoPariValue(countMap));
+            resultList.set(TWO_PAIR, getKeyValue(countMap,2));
         }
         if (countMap.size() == 3 && countMap.containsValue(3)) {
-            resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
+            resultList.set(THIRD_OF_A_KING, getKeyValue(countMap,3));
         }
         if(flushMap.size() == 1){
             if(resultList.get(STRAIGHT)!=0){
@@ -77,32 +77,23 @@ public class Poker {
             resultList.set(FULL_HOUSE,getFullHouseValue(countMap));
         }
         if(countMap.size()==2&&countMap.containsValue(4)){
-            resultList.set(FOUR_OF_A_KING,getTourOfAKingValue(countMap));
+            resultList.set(FOUR_OF_A_KING,getKeyValue(countMap,4));
         }
-
     }
 
-    private int getTourOfAKingValue(Map<Character, Integer> countMap) {
-        for (Character key : countMap.keySet()) {
-            if (countMap.get(key) == 4) {
-                return gameMap.get(key);
-            }
+    private Map<Character, Integer> getCount(Map<Character, Integer> countMap, String pokerMessage, int i) {
+        if (countMap.containsKey(pokerMessage.charAt(i))) {
+            countMap.put(pokerMessage.charAt(i), countMap.get(pokerMessage.charAt(i)) + 1);
+        } else {
+            countMap.put(pokerMessage.charAt(i), 1);
         }
-        return 0;
+        return countMap;
     }
-
-
 
     private int getFullHouseValue(Map<Character, Integer> countMap) {
         int sum = 0;
-        for (Character key : countMap.keySet()) {
-            if (countMap.get(key) == 3) {
-                sum += gameMap.get(key)*2;
-            }
-            if (countMap.get(key) == 2) {
-                sum += gameMap.get(key);
-            }
-        }
+        sum += getKeyValue(countMap,3);
+        sum += getKeyValue(countMap,2);
         return sum;
     }
 
@@ -125,28 +116,10 @@ public class Poker {
         return true;
     }
 
-    private Integer getPariValue(Map<Character, Integer> countMap) {
-        for (Character key : countMap.keySet()) {
-            if (countMap.get(key) == 2) {
-                return gameMap.get(key);
-            }
-        }
-        return 0;
-    }
-
-    private Integer getThirdOfAKingValue(Map<Character, Integer> countMap) {
-        for (Character key : countMap.keySet()) {
-            if (countMap.get(key) == 3) {
-                return gameMap.get(key);
-            }
-        }
-        return 0;
-    }
-
-    private Integer getTwoPariValue(Map<Character, Integer> countMap) {
+    private int getKeyValue(Map<Character, Integer> countMap,int keyValue){
         int sum = 0;
         for (Character key : countMap.keySet()) {
-            if (countMap.get(key) == 2) {
+            if (countMap.get(key) == keyValue) {
                 sum += gameMap.get(key);
             }
         }
