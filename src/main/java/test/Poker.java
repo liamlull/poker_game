@@ -1,9 +1,7 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.jar.JarOutputStream;
 
 public class Poker {
     Map<Character, Integer> gameMap = new HashMap<Character, Integer>() {{
@@ -25,13 +23,14 @@ public class Poker {
     private final int PAIR = 0;
     private final int TWO_PAIR = 1;
     private final int THIRD_OF_A_KING = 2;
+    private final int STRAIGHT = 3;
     List<Integer> resultList = new ArrayList<>();
     private int result = 0;
 
     public Poker(String[] gamerPoker) {
         Map<Character, Integer> countMap = new HashMap<Character, Integer>() {
         };
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             resultList.add(0);
         }
         for (int i = 0; i < gamerPoker.length; i++) {
@@ -44,6 +43,11 @@ public class Poker {
                 countMap.put(gamerPoker[i].charAt(0), 1);
             }
 
+            if(countMap.size() == 5){
+                if(isStraight(countMap)){
+                    resultList.set(STRAIGHT, 10);
+                }
+            }
             if (countMap.size() == 4) {
                 resultList.set(PAIR, getPariValue(countMap));
             }
@@ -54,6 +58,25 @@ public class Poker {
                 resultList.set(THIRD_OF_A_KING, getThirdOfAKingValue(countMap));
             }
         }
+    }
+
+    private boolean isStraight(Map<Character, Integer> countMap) {
+        List<Integer> numList = new ArrayList<>();
+        int min = 10000;
+        for (Character key : countMap.keySet()) {
+            if(gameMap.get(key)<min){
+                min = gameMap.get(key);
+            }
+            numList.add(gameMap.get(key));
+        }
+        for(int i=0;i<5;i++){
+            if(numList.contains(new Integer(min))){
+                min = min*2;
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 
     private Integer getPariValue(Map<Character, Integer> countMap) {

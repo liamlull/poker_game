@@ -192,8 +192,71 @@ public class PokerTest {
         assertEquals(result,1);
     }
 
+    @Test
+    public void should_return_1_when_given_3C_4H_5D_6C_7H_and_3C_3D_3S_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"3C","3D","3S","KD","TH"};
 
+        int result = game.startGame(gamer1,gamer2);
 
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_4H_5D_6C_7H_and_3C_3D_KS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"3C","3D","KS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_4H_5D_6C_7H_and_3C_3D_QS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"3C","3D","QS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_4H_5D_6C_7H_and_3C_2D_QS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"3C","3D","QS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
+
+    @Test
+    public void should_return_2_when_given_3C_4H_5D_6C_7H_and_9C_JD_QS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"9C","JD","QS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,2);
+    }
+
+    @Test
+    public void should_return_1_when_given_3C_4H_5D_6C_7H_and_9C_JD_KS_KD_TH() {
+        Game game = new Game();
+        String[] gamer1 = {"3C","7H","4D","6C","5H"};
+        String[] gamer2 = {"9C","JD","KS","KD","TH"};
+
+        int result = game.startGame(gamer1,gamer2);
+
+        assertEquals(result,1);
+    }
 
 
 }
